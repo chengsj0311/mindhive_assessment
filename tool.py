@@ -14,10 +14,12 @@ def calculator(text: str) -> str:
     payload = {"prompt": text}
     try:
         response = client.post('calculator', json=payload)
+        if response.status_code == 500:
+            return "Sorry, our service is temporarily unavailable. Please try again later."
         result = response.json().get("result", "")
         return result
     except Exception as e:
-        return "cal"
+        return "error"
 
 def rag_products(text: str) -> str:
     """
@@ -26,6 +28,8 @@ def rag_products(text: str) -> str:
     payload = {"query": text}
     try:
         response = client.get('products', params=payload)
+        if response.status_code == 500:
+            return "Sorry, our service is temporarily unavailable. Please try again later."
         result = response.json().get("response", "")
         return result
     except Exception as e:
@@ -38,6 +42,8 @@ def outlets_text2sql(text: str) -> str:
     payload = {"query": text}
     try:
         response = client.get('outlets', params=payload)
+        if response.status_code == 500:
+            return "Sorry, our service is temporarily unavailable. Please try again later."
         result = response.json().get("response", "")
         return result
     except Exception as e:
