@@ -12,7 +12,6 @@ class Result(BaseModel):
 
 @router.post("", response_model=Result)
 def chat(req: Request):
-    raise HTTPException(status_code=500, detail="Simulated server error")
     res = calculate(req.prompt)
     return {
         "result": res
