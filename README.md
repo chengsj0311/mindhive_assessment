@@ -46,6 +46,7 @@ Once running, the server are available on http://127.0.0.1:8000 locally
 - FastAPI: Serves as the API layer to expose endpoints (/chat, /products, /outlets, /calculator).
 - FAISS Vector Store: Handles semantic search for product knowledge base (RAG).
 - SQLite: Stores structured outlet data for Text2SQL queries.
+- Render: Deployment
 
 ### 1. Frontend
 - Next.js: Deployed on Vercel, provides a simple chat interface for interacting with the bot.
