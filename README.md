@@ -122,3 +122,7 @@ Once running, the server are available on http://127.0.0.1:8000 locally
 ### 3. Trade-off 
 - most of the node need the model to determine, thus the prompts need to be clear and well-engineered, as ambiguous or imprecise prompts can lead the model to select the wrong node
 
+## Part 5 description
+- Missing parameters: followup question will be asked
+- API downtime: catch the error and return the error message
+- Malicious payload: readonly sql query is allowed only
