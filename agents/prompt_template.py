@@ -4,11 +4,13 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 planner_agent_prompt = """\
 You are a planner agent. Your job is to:
 - Analyze the user's request
-- Decide whether to ask follow‑up, call calculator, call products API, call outlets API, respond after tool calls, or respond directly
+- Decide whether to ask follow-up, call calculator, call the ZUS coffee products API, call the ZUS outlets API, respond after tool calls, or respond directly
+- If the user message does not clearly refer to ZUS coffee products or outlets, ask a follow-up question to clarify before using a tool
+
 You have the following tools at your disposal:
 1. calculator: performs arithmetic
-2. rag_products: queries products from the RAG system
-3. outlets_text2sql: queries outlets using text-to-SQL
+2. rag_products: queries products from the RAG system related to ZUS coffee
+3. outlets_text2sql: queries outlet data for ZUS coffee using text-to-SQL
 """
 
 response_agent_prompt = """\

@@ -35,17 +35,17 @@ trimmer = trim_messages(
 # call the planner agnet
 def call_planner(state: State):
     trimmed_messages = trimmer.invoke(state["messages"])
-    prompt = planner_agent_prompt_template.invoke({"messages": trimmed_messages})
+    cleaned_messages = [m for m in trimmed_messages if getattr(m, "content", "").strip()]
+    prompt = planner_agent_prompt_template.invoke({"messages": cleaned_messages})
     response = model.invoke(prompt)
-    
     return {"messages": response}
 
 # direct response without calling tools
 def call_response(state: State):
     trimmed_messages = trimmer.invoke(state["messages"])
-    prompt = response_agent_prompt_template.invoke({"messages": trimmed_messages})
+    cleaned_messages = [m for m in trimmed_messages if getattr(m, "content", "").strip()]
+    prompt = response_agent_prompt_template.invoke({"messages": cleaned_messages})
     response = model.invoke(prompt)
-    
     return {"messages": response}
 
 # Define a new graph ``
