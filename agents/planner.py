@@ -17,6 +17,7 @@ class State(TypedDict):
 
 # initialize the chat model
 model = init_chat_model("gemini-2.0-flash", model_provider="google_genai").bind(tools=[calculator, rag_products, outlets_text2sql])
+response_model = init_chat_model("gemini-2.0-flash", model_provider="google_genai")
 
 # Define tool node
 tool_nodes = ToolNode([calculator, rag_products, outlets_text2sql])
@@ -38,6 +39,9 @@ def call_planner(state: State):
     cleaned_messages = [m for m in trimmed_messages if getattr(m, "content", "").strip()]
     prompt = planner_agent_prompt_template.invoke({"messages": cleaned_messages})
     response = model.invoke(prompt)
+    
+    print(response)
+    
     return {"messages": response}
 
 # direct response without calling tools
@@ -45,7 +49,9 @@ def call_response(state: State):
     trimmed_messages = trimmer.invoke(state["messages"])
     cleaned_messages = [m for m in trimmed_messages if getattr(m, "content", "").strip()]
     prompt = response_agent_prompt_template.invoke({"messages": cleaned_messages})
-    response = model.invoke(prompt)
+    response = response_model.invoke(prompt)
+    print("Response from response agent:")
+    print(response)
     return {"messages": response}
 
 # Define a new graph ``
